@@ -1,0 +1,26 @@
+#!/bin/sh
+PROJECT_ROOT=$(pwd)
+
+# check if version and project name are the same in frontend and backend manifest
+cd $PROJECT_ROOT && cd card-collection-manager-2/src-tauri
+CARGO_VERSION=$(cargo read-manifest | jq -r .version)
+CARGO_NAME=$(cargo read-manifest | jq -r .name)
+cd $PROJECT_ROOT && cd card-collection-manager-2
+YARN_VERSION=$(cat package.json | jq -r .version)
+YARN_NAME=$(cat package.json | jq -r .name)
+
+if [ $CARGO_VERSION != $YARN_VERSION ]; then
+    echo "[PRE-COMMIT] Project version in 'package.json' and 'Cargo.toml' does not match."
+    exit 1
+fi
+if [ $CARGO_NAME != $YARN_NAME ]; then
+    echo "[PRE-COMMIT] Project name in 'package.json' and 'Cargo.toml' does not match."
+    exit 1
+fi
+
+
+cd $PROJECT_ROOT
+echo $CARGO_VERSION > version
+git add version
+
+exit 0

@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/*todo: document this class */
+.grid-settings-8 {
+    grid-template-columns: max-content repeat(7, minmax(0, 1fr));
+}
+
+.grid-settings-2 {
+    grid-template-columns: max-content max-content
+}
+
+
+@layer base {
+
+    button,  button[type=submit], button[type=button] {
+        @apply bg-gradient-to-r from-blue-900 to-blue-700 text-white uppercase px-4 rounded-sm hover:shadow-lg hover:scale-105 bg-[#ffffff]
+
+    }
+}

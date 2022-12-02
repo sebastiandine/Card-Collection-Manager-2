@@ -1,0 +1,27 @@
+{
+    "name": "Tauri Dev Environment",
+    "dockerFile": "Dockerfile",
+  
+    "settings": {
+      "terminal.integrated.shell.linux": "/bin/bash",
+      "rust-analyzer.linkedProjects": [
+        "card-collection-manager-2/src-tauri/Cargo.toml"
+      ]
+    },
+
+    "extensions": [
+      "esbenp.prettier-vscode",
+      "dbaeumer.vscode-eslint",
+      "bradlc.vscode-tailwindcss",
+      "rust-lang.rust-analyzer",
+      "be5invis.toml"
+    ],
+    
+    "remoteEnv": {
+        "DISPLAY": "host.docker.internal:0"
+    },
+  
+    "remoteUser": "dev", 
+    "workspaceMount": "source=${localWorkspaceFolder},target=/home/dev/workspace/${localWorkspaceFolderBasename},type=bind",
+    "workspaceFolder": "/home/dev/workspace/${localWorkspaceFolderBasename}"
+}

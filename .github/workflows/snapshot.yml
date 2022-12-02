@@ -1,0 +1,37 @@
+name: Tauri Snapshot Pipeline
+
+on:
+  push:
+    branches: [ "*", "!master" ]
+    
+jobs:
+
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout the branch
+        uses: actions/checkout@v3
+    
+      - name: Setup NodeJS 16
+        uses: actions/setup-node@v3.5.1
+        with:
+          node-version: 16
+  
+      - name: Setup Rust Stable Toolchain
+        uses: actions-rs/toolchain@v1.0.6
+        with:
+          toolchain: stable
+      
+      - name: build app
+        run: |
+          cd card-collection-manager-2
+          yarn && yarn tauri build
+          ls src-tauri/target
+      
+      - name: upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: target
+          path: card-collection-manager-2/src-tauri/target/release/bundle
+          
