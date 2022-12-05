@@ -66,3 +66,8 @@ Actual versions are automatically built via GitHub Action pipelines defined at [
 ### Additional Resources
 * [Scryfall API](https://scryfall.com/docs/api) for fetching card and set data of Magic the Gathering, including card preview images.
 * [Pokemon TCG API](https://docs.pokemontcg.io/) for fetching card and set data of the Pokemon TCG, including card preview images.
+
+### Further Reading
+* [Tauri GitHub Actions Templates](https://github.com/tauri-apps/tauri-action)
+* [Rust Serialization Framework](https://github.com/serde-rs/serde)
+* [Tauri Command Docs](https://tauri.app/v1/guides/features/command)
