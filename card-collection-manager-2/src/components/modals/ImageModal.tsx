@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState, Suspense } from "react";
 import { invoke } from "@tauri-apps/api/tauri";
 
 import { GrNext, GrPrevious } from "react-icons/gr";
@@ -6,6 +6,70 @@ import { RotatingLines } from "react-loader-spinner";
 
 import ModalTemplate from "../templates/ModalTemplate";
 import Image from "next/image";
+
+const wrapPromise = (promise: Promise<any>) => {
+  // set initial status
+  let status = "pending";
+  // result
+  let result: any;
+  // wait for promise
+  let suspender = promise.then(
+    res => {
+      status = "success";
+      result = res;
+    },
+    err => {
+      status = "error";
+      result = err;
+    }
+  );
+
+  return {
+    read() {
+      console.log(`Status: ${status}`);
+      if(status === "pending") {
+        throw suspender;
+      }
+      else if(status === "error") {
+        throw result;
+      }
+      else if(status === "success") {
+        return result;
+      }
+    }
+  }
+}
+
+const loadImagePromise = (images: string[], index: number, game: string) => {
+  return invoke("get_image_b64", { image: images[index], game: game})
+  .then(res => res as string)
+  .catch(err => err)
+}
+
+const loadImage = (images: string[], index: number, game: string) => {
+  const imagePromise = loadImagePromise(images, index, game);
+  return wrapPromise(imagePromise);
+}
+
+const CardImage: React.FC<{images: string[], index: number, game: string}> = (props) => {
+  const imageB64 = loadImage(props.images, props.index, props.game).read();
+  return (
+    <Image src={imageB64 as string} layout="fill" objectFit="contain" />
+  )
+}
+
+const Loader: React.FC<{}> = () => {
+  return (
+    <div className="w-full h-[90%] flex items-center justify-center">
+      <RotatingLines
+        strokeColor="grey"
+        strokeWidth="5"
+        animationDuration="0.75"
+        width="96"
+      />
+  </div>  
+  )
+}
 
 /**
  * Modal to display a set of images.
@@ -30,13 +94,13 @@ const ImageModal: React.FC<{
   // index of current image in `props.images`
   const [imageIndex, setImageIndex] = useState<number>(0);
   // flag to display the loading image
-  const [loaderVisible, setLoaderVisible] = useState<boolean>(true);
+  const [loaderVisible, setLoaderVisible] = useState<boolean>(false); // true
 
   useEffect(() => {
     if (props.visible && props.images) {
-      setLoaderVisible(true);
+      //setLoaderVisible(true);
       setImageIndex(props.startIndex | 0);
-      loadImage(props.startIndex | 0);
+      //loadImage(props.startIndex | 0);
     }
   }, [props.visible]);
 
@@ -74,19 +138,9 @@ const ImageModal: React.FC<{
           modalStyle=" w-[80%] h-[80%]"
         >
           <div className="relative h-[90%] mx-8">
-            {loaderVisible
-            ? 
-              <div className="w-full h-[90%] flex items-center justify-center">
-                <RotatingLines
-                strokeColor="grey"
-                strokeWidth="5"
-                animationDuration="0.75"
-                width="96"
-                />
-              </div>  
-            : 
-              <Image src={imageB64} layout="fill" objectFit="contain" />
-            }
+            <Suspense fallback={<Loader />} >
+              <CardImage images={props.images} index={imageIndex} game={props.game} />
+            </Suspense>
 
             {/* next/previous image icons */}
             {props.images.length > 1 ? (
