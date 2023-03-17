@@ -22,7 +22,7 @@ After performing these steps, the next time you open CCM2, you will see your col
 ### Contribute
 The project includes configuration for [VSCode development containers](https://code.visualstudio.com/docs/remote/containers) which should be the preffered environment to develop new features of the app. The container automatically sets up a whole Tauri development environment including Typescript & Rust plugins for VSCode.
 
-Also, in directory `hooks/` you find some helpful git hooks that automate/standardize some work. You can activate these hooks by executing the script `activate_hooks.sh` from within the `hooks/` directory. 
+Also, in directory `hooks/` you find some helpful git hooks that automate/standardize some work. You can activate these hooks by executing the script `activate_hooks.sh` from within the `hooks/` directory. If you are receiving errors like `fatal: cannot run .git/hooks/pre-commit: No such file or directory`, check the line-end sequence of the hook scripts, adjust them according to your system and run `activate_hooks.sh` again. 
 
 Additionally, if you want to run the GUI out of the container, you need to use a X11 tool. I will briefly explain how to run them in order to display the GUI from the container:
 
