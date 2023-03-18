@@ -300,7 +300,7 @@ const CreateEditModalTemplate: React.FC<{
                 </select>
 
                 <label className="text-sm col-span-1">Set No.</label>
-                <input type="number"
+                <input type="text"
                   className="text-sm col-span-2 border-2"
                   defaultValue={""}
                   ref={setNoRef}

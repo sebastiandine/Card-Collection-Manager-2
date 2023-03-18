@@ -22,7 +22,7 @@ After performing these steps, the next time you open CCM2, you will see your col
 ### Contribute
 The project includes configuration for [VSCode development containers](https://code.visualstudio.com/docs/remote/containers) which should be the preffered environment to develop new features of the app. The container automatically sets up a whole Tauri development environment including Typescript & Rust plugins for VSCode.
 
-Also, in directory `hooks/` you find some helpful git hooks that automate/standardize some work. You can activate these hooks by executing the script `activate_hooks.sh` from within the `hooks/` directory. 
+Also, in directory `hooks/` you find some helpful git hooks that automate/standardize some work. You can activate these hooks by executing the script `activate_hooks.sh` from within the `hooks/` directory. If you are receiving errors like `fatal: cannot run .git/hooks/pre-commit: No such file or directory`, check the line-end sequence of the hook scripts, adjust them according to your system and run `activate_hooks.sh` again. 
 
 Additionally, if you want to run the GUI out of the container, you need to use a X11 tool. I will briefly explain how to run them in order to display the GUI from the container:
 
@@ -38,7 +38,7 @@ Now, you can start a GUI app in your container that will be displayed via the X-
 
 ### Local Run & Building
 * Execute  `yarn` to install all NodeJS dependencies when you initially check out the project. Make sure you are in the Tauri project directory.
-* Execute `yarn tauri dev` to run the application in development mode. Make sure you are in the Tauri project directory. If you run this for the first  time, it will quite long since it needs to fetch all Rust-based dependencies and build corresponding binaries. If you make changes to the Rust code of the project, it will also take a while (but not as long as the initial run), since it has to recompile binaries.
+* Execute `yarn tauri dev` to run the application in development mode. Make sure you are in the Tauri project directory. If you run this for the first time, this will take quite a long time, since it needs to fetch all Rust-based dependencies and build corresponding binaries. If you make changes to the Rust code of the project, it will also take a while (but not as long as the initial run), since it has to recompile binaries.
 * Execute `yarn tauri build`  to build the application. Right now, Tauri only supports building for the local architecture. Since the development container is based on Linux, this means you will build Linux packages via this command.
 
 ### Remote Building
