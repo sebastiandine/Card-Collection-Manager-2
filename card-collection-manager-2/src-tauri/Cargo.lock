@@ -203,7 +203,7 @@ dependencies = [
 
 [[package]]
 name = "card-collection-manager-2"
-version = "1.0.0"
+version = "1.0.3"
 dependencies = [
  "base64",
  "image",
