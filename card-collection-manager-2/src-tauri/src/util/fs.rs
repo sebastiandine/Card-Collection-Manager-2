@@ -15,6 +15,10 @@ pub fn format_text_for_fs(text: &String) -> String {
     .replace("&", "And")
     .replace("|", "Or")
     .replace("é", "e")
+    .replace("í", "i")
+    .replace("ó", "o")
+    .replace("ú", "u")
+    .replace("û", "u")
 }
 
 /// Parse an index from the end of a filename. This function supports indices with 
