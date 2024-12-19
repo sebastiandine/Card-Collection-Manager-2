@@ -116,14 +116,14 @@ jobs:
           asset_name: card-collection-manager-2_${{ needs.create-release.outputs.version }}_aarch64.dmg
           asset_content_type: application/x-apple-diskimage
 
-      - name: upload release asset (MacOS/.app)
-        if: matrix.platform == 'macos-latest'
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ needs.create-release.outputs.release_upload_url }}
-          asset_path: card-collection-manager-2/src-tauri/target/release/bundle/macos/card-collection-manager-2.app
-          asset_name: card-collection-manager-2_${{ needs.create-release.outputs.version }}.app
-          asset_content_type: application/x-mach-binary
+      #- name: upload release asset (MacOS/.app)
+      #  if: matrix.platform == 'macos-latest'
+      #  uses: actions/upload-release-asset@v1
+      #  env:
+      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #  with:
+      #    upload_url: ${{ needs.create-release.outputs.release_upload_url }}
+      #    asset_path: card-collection-manager-2/src-tauri/target/release/bundle/macos/card-collection-manager-2.app
+      #    asset_name: card-collection-manager-2_${{ needs.create-release.outputs.version }}.app
+      #    asset_content_type: application/x-mach-binary
 
