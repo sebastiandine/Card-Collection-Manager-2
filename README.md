@@ -19,6 +19,16 @@ After performing these steps, the next time you open CCM2, you will see your col
 
 
 ## How to build/ contribute
+
+### Creating a new version
+To create a new version that is properly picked up by the pipeline to create a new release, adjust the version in the following files:
+```
+version
+card-collection-manager-2/package.json
+card-collection-manager-2/src-tauri/tauri.conf.json
+card-collection-manager-2/src-tauri/Cargo.toml
+```
+
 ### Contribute
 The project includes configuration for [VSCode development containers](https://code.visualstudio.com/docs/remote/containers) which should be the preffered environment to develop new features of the app. The container automatically sets up a whole Tauri development environment including Typescript & Rust plugins for VSCode.
 

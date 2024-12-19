@@ -1,8 +1,8 @@
 [package]
 name = "card-collection-manager-2"
-version = "1.0.3"
+version = "1.0.4"
 description = "A Tauri App"
-authors = ["you"]
+authors = ["Sebastian Dine"]
 license = ""
 repository = ""
 edition = "2021"
