@@ -14,6 +14,7 @@ pub fn format_text_for_fs(text: &String) -> String {
     .replace(":", "-")
     .replace("&", "And")
     .replace("|", "Or")
+    .replace("á", "a")
     .replace("é", "e")
     .replace("í", "i")
     .replace("ó", "o")
